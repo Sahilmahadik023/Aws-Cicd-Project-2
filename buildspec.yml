@@ -10,7 +10,7 @@ env:
 phases:
   install:
     runtime-versions:
-      nginx unit: latest
+      nodejs: latest
   pre_build:
     commands:
        - echo "Installing Dependencies ..."
