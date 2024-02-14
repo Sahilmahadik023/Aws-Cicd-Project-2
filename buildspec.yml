@@ -1,0 +1,27 @@
+version: 0.2
+
+
+env:
+  parameter-store:
+    DOCKER_REGISTRY_USERNAME: /myapp/docker-credentials/username
+    DOCKER_REGISTRY_PASSWORD: /myapp/docker-credentials/password
+    DOCKER_IMAGE_NAME: /myapp/docker-image/name
+    DOCKER_USER_ID: /myapp/docker/userid
+    
+  phases:
+  install:
+    runtime-versions:
+      nginx: latest
+  pre_build:
+    commands:
+       - echo "Installing Dependencies ..."
+  build:
+    commands:
+      - echo "Running Test"
+      - echo "Building Image"
+      - echo "$DOCKER_REGISTRY_PASSWORD" | docker login -u "$DOCKER_REGISTRY_USERNAME" --password-stdin
+      - docker build -t "$DOCKER_USER_ID/$DOCKER_IMAGE_NAME:latest" .
+      - docker push "$DOCKER_USER_ID/$DOCKER_IMAGE_NAME:latest"
+  post_build:
+    commands:
+       - echo "Build is sucessful"
