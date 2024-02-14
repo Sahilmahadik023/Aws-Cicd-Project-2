@@ -23,4 +23,4 @@ phases:
       - docker push "$DOCKER_USER_ID/$DOCKER_IMAGE_NAME:latest"
   post_build:
     commands:
-       - echo "Build is successful
+       - echo "Build is successful"
